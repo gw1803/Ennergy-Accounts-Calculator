@@ -1,0 +1,111 @@
+<MDButton>
+    radius: [10,10,10,10]
+    #md_bg_color: (246, 248, 238, 0)    
+    theme_width: "Custom"
+    size_hint_x: .75
+    
+    
+FloatLayout:
+
+    StackLayout:
+        orientation: 'lr-tb'
+        spacing:[50,0]
+        padding:[75,75]
+
+        Image:
+            source: 'images\lamp.png'
+            size_hint: (0.30, None )
+
+        Label:
+            size_hint: (None, None)
+            text: 'Olá, \nnome'
+            font_size: 50
+            font_name: 'fonts/Roboto-Medium.ttf'
+            color: '#121310'
+            halign: 'left'
+
+    
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 50
+        pos_hint: {"y": .18}
+
+        MDButton:
+            pos_hint: {"center_x": .5}
+            height: 70
+            shadow_offset: 6, -6
+
+            MDButtonIcon:
+                icon: "calculator"
+                color: '#121310'
+                pos_hint: {"x": .85, "center_y": .5}  
+                font_size: 35 #size of icon
+                font_size: 35 #size of icon
+
+            MDButtonText:
+                text: "Realizar cálculo"
+                theme_font_name: "Custom"
+                theme_font_size: "Custom"
+                font_name: 'fonts/Roboto-Light.ttf'
+                color: '#121310'
+                pos_hint: {"x": .1, "center_y": .5}
+                font_size: 25
+
+        MDButton:
+            pos_hint: {"center_x": .5}
+            height: 70
+            shadow_offset: 6, -6
+
+            MDButtonIcon:
+                icon: "magnify"
+                color: '#121310'
+                pos_hint: {"x": .85, "center_y": .5}
+                font_size: 35 #size of icon
+
+            MDButtonText:
+                text: "Visualizar cálculos"
+                theme_font_name: "Custom"
+                theme_font_size: "Custom"
+                font_name: 'fonts/Roboto-Light.ttf'
+                color: '#121310'
+                pos_hint: {"x": .1, "center_y": .5}
+                font_size: 25
+
+        MDButton:
+            pos_hint: {"center_x": .5}
+            height: 70
+            shadow_offset: 6, -6
+
+            MDButtonIcon:
+                icon: "book-open-variant-outline"
+                color: '#121310'
+                pos_hint: {"x": .85, "center_y": .5}
+                font_size: 35 #size of icon
+            MDButtonText:
+                text: "Adicionar conta"
+                theme_font_name: "Custom"
+                theme_font_size: "Custom"
+                font_name: 'fonts/Roboto-Light.ttf'
+                color: '#121310'
+                pos_hint: {"x": .1, "center_y": .5}
+                font_size: 25
+
+        MDButton:
+            pos_hint: {"center_x": .5}
+            height: 70
+            shadow_offset: 6, -6
+
+            MDButtonIcon:
+                icon: "magnify"
+                color: '#121310'
+                pos_hint: {"x": .85, "center_y": .5}
+                font_size: 35 #size of icon
+            MDButtonText:
+                text: "Visualizar contas"
+                theme_font_name: "Custom"
+                theme_font_size: "Custom"
+                font_name: 'fonts/Roboto-Light.ttf'
+                color: '#121310'
+                pos_hint: {"x": .1, "center_y": .5}
+                font_size: 25
+    
