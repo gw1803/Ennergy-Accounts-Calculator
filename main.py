@@ -1,17 +1,22 @@
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.app import MDApp
-from kivy.uix.widget import Widget
+from kivy.uix.screenmanager import ScreenManager, Screen
 
-Window.size = (375,700)
+class Inicio(Screen):
+    pass
 
+class RealizarCalculo(Screen):
+    pass 
+    
+class WindowManager(ScreenManager):
+    pass
 
-class Inicio(Widget):
-    ...
 
 class main(MDApp):
     def build(self):
         Window.clearcolor = "#D6E68A"
+        Window.size = (375,700)
         return Builder.load_file('front-end.kv')
 
 if __name__ == '__main__':
