@@ -8,6 +8,14 @@ WindowManager:
     theme_width: "Custom"
     size_hint_x: .75
 
+<TextInput>
+    input_filter: 'int'
+    font_size: 20
+    height: 35
+    size_hint: 0.7, None
+    hint_text_color: "#C0C0C0"
+    
+
 <RealizarCalculo>
     name: "RealizarCalculo"
 
@@ -45,12 +53,10 @@ WindowManager:
             color: '#ffffff'
 
         TextInput:
-            font_size: 20
-            height: 35
-            size_hint: 0.7, None
             pos_hint: {'x': 0.15, 'y': 0.7} 
             hint_text: "Ex: 35673"
-            hint_text_color: "#C0C0C0"
+            id: padrao_geral
+            on_text: root.on_text(self)
             
         Label:
             size_hint: (None, None)
@@ -61,12 +67,11 @@ WindowManager:
             color: '#ffffff'
 
         TextInput:
-            font_size: 20
-            height: 35
             size_hint: 0.30, None
             pos_hint: {'x': 0.15, 'y': 0.6} 
             hint_text: "Ex: 35673"
-            hint_text_color: "#C0C0C0"
+            id: padrao_wilson
+            on_text: root.on_text(self)
 
         Label:
             size_hint: (None, None)
@@ -77,12 +82,11 @@ WindowManager:
             color: '#ffffff'
 
         TextInput:
-            font_size: 20
-            height: 35
             size_hint: 0.30, None
             pos_hint: {'x': 0.55, 'y': 0.6} 
             hint_text: "Ex: 35673"
-            hint_text_color: "#C0C0C0"
+            id: padrao_celio
+            on_text: root.on_text(self)
 
         MDDivider:
             size_hint_x: .8
@@ -91,20 +95,19 @@ WindowManager:
         
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.19, 'y': 0.45}
-            text: 'Valor da conta'
+            pos_hint: {'x': 0.24, 'y': 0.45}
+            text: 'Valor total da conta'
             font_size: 20
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
         TextInput:
-            font_size: 20
-            height: 35
-            size_hint: 0.7, None
             pos_hint: {'x': 0.15, 'y': 0.45} 
-            hint_text: "Ex: 230.45 R$"
-            hint_text_color: "#C0C0C0"
-        
+            hint_text: "Ex: 230.45"
+            input_filter: 'float'
+            id: valor_conta
+            on_text: root.on_text(self)
+
         Label:
             size_hint: (None, None)
             pos_hint: {'x': 0.17, 'y': 0.35}
@@ -114,12 +117,11 @@ WindowManager:
             color: '#ffffff'
 
         TextInput:
-            font_size: 20
-            height: 35
-            size_hint: 0.7, None
             pos_hint: {'x': 0.15, 'y': 0.35} 
-            hint_text: "Ex: 0.9596 R$"
-            hint_text_color: "#C0C0C0"
+            hint_text: "Ex: 0.9596"
+            input_filter: 'float'
+            id: valor_kw
+            on_text: root.on_text(self)
         
         Label:
             size_hint: (None, None)
@@ -130,18 +132,20 @@ WindowManager:
             color: '#ffffff'
 
         TextInput:
-            font_size: 20
-            height: 35
-            size_hint: 0.7, None
             pos_hint: {'x': 0.15, 'y': 0.25} 
-            hint_text: "Ex: 45.00 R$"
-            hint_text_color: "#C0C0C0"
-        
+            hint_text: "Ex: 45.00"
+            input_filter: 'float'
+            id: taxa_iluminacao
+            on_text: root.on_text(self)
+
         MDButton:
+            id: button
             pos_hint: {'x': 0.35, 'y': 0.14}
             height: 70
             shadow_offset: -6, 6
             size_hint_x: .3
+            md_bg_color_disabled: '#C0C0C0'
+            disabled: True
 
             MDButtonText:
                 text: "Calcular"
@@ -151,6 +155,7 @@ WindowManager:
                 color: '#121310'
                 font_size: 25
                 pos_hint: {'x': 0.18, 'center_y': 0.5}
+                
 
         Image:
             source: 'images\lamp.png'
