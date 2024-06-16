@@ -1,3 +1,4 @@
+from asyncio import wait
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.app import MDApp
@@ -7,10 +8,17 @@ class Inicio(Screen):
     pass
 
 class RealizarCalculo(Screen):
+    #calculated values
+    valor_wilson = 0
+    valor_celio = 0
+    descricao = ""
+    descricao_wilson = ""
+    descricao_celio = ""
+
     #values from the previous account
-    padrao_geral_anterior = 31605
-    padrao_wilson_anterior = 36685
-    padrao_celio_anterior = 24706
+    padrao_geral_anterior = 31000
+    padrao_wilson_anterior = 36000
+    padrao_celio_anterior = 24000
 
     #values from the form 
     padrao_geral = ""
@@ -18,12 +26,7 @@ class RealizarCalculo(Screen):
     padrao_celio = ""
     valor_conta = ""
     valor_kw = ""
-    taxa_iluminacao = ""
-
-    #calculated values
-    valor_wilson = 0
-    valor_celio = 0
-    descricao = ""
+    taxa_iluminacao = 0
 
     def on_text(self, input):  
         match input:
@@ -49,6 +52,8 @@ class RealizarCalculo(Screen):
             self.ids.button.disabled = True
 
     def calculate(self):
+        if(self.ids.button.disabled == True):
+            return
         kw_total_geral = self.padrao_geral - self.padrao_geral_anterior
 
         kw_wilson = self.padrao_wilson - self.padrao_wilson_anterior
@@ -67,23 +72,56 @@ class RealizarCalculo(Screen):
             self.descricao = self.descricao + f"\n{kw_excedente} kw: execedente (valor gasto pelos dois maior que o constante na conta) -> valor abatido igualmente entre os dois"
 
         self.valor_wilson = kw_wilson * self.valor_kw
+        self.descricao_wilson += f"{kw_wilson}*{self.valor_kw} = {self.valor_wilson}"
         self.valor_celio = kw_celio * self.valor_kw
+        self.descricao_celio += f"{kw_celio}*{self.valor_kw} = {self.valor_celio}"
 
-        if int(self.taxa_iluminacao) > 0:
+        if self.taxa_iluminacao > 0:
+            self.descricao_celio += f"\n{self.valor_celio}+{self.taxa_iluminacao/2} = {self.valor_celio + self.taxa_iluminacao/2}"
             self.valor_celio = self.valor_celio + self.taxa_iluminacao/2
+            self.descricao_wilson += f"\n{self.valor_wilson}+{self.taxa_iluminacao/2} = {self.valor_wilson + self.taxa_iluminacao/2}"
             self.valor_wilson = self.valor_wilson + self.taxa_iluminacao/2
+            
             self.descricao = self.descricao + f"\n{self.taxa_iluminacao} R$: taxa de iluminação -> valor divido entre os dois"
         
         if self.valor_conta > (self.valor_celio+self.valor_wilson):
             valor_restante = self.valor_conta - (self.valor_wilson + self.valor_celio)
+            self.descricao_wilson += f"\n{self.valor_wilson}+{valor_restante/2} = {self.valor_wilson + valor_restante/2}"
             self.valor_wilson += valor_restante/2
+            self.descricao_celio += f"\n{self.valor_celio}+{valor_restante/2} = {self.valor_celio + valor_restante/2}"
             self.valor_celio += valor_restante/2
             self.descricao = self.descricao + f"\n{valor_restante} R$: valor adicional(taxas de atraso, valores inseridos errado, etc) -> valor divido entre os dois"
+        
+        self.descricao_wilson += f"\nValor final: {self.valor_wilson}"
+        self.descricao_celio += f"\nValor final: {self.valor_celio}"
 
-        print(f"Valor wilson: {self.valor_wilson}\nValor Célio: {self.valor_celio}\nDescrição: {self.descricao}")
+        self.manager.current = "Resultado"
         
- 
-        
+class Resultado(Screen):
+    #achar instancia de RealizarCalculo
+    desc_w = RealizarCalculo.descricao_wilson
+    desc_c = ""
+    val_w = str(RealizarCalculo.valor_wilson)
+    val_c = ""
+      
+
+    def on_release_descricao(self):
+        if self.description_verifier:
+            self.ids.button_edit.pos_hint = {'x': 1.15}
+            self.ids.button_exclude.pos_hint = {'x': 1.15}
+            self.ids.description.pos_hint = {'x': 0.15, 'y': 0.22}
+            self.ids.widget.size_hint = 0.8, 0.75
+            self.ids.widget.pos_hint = {'x': 0.1, 'y': 0.10}
+            self.description_verifier = False
+        else:
+            self.ids.button_edit.pos_hint = {'x': 0.12, 'y': 0.1}
+            self.ids.button_exclude.pos_hint =  {'x': 0.6, 'y': 0.1}
+            self.ids.description.pos_hint = {'x': 1.15, 'y': 0.22}
+            self.ids.widget.size_hint = 0.8, 0.6
+            self.ids.widget.pos_hint = {'x': 0.1, 'y': 0.25}
+            self.description_verifier = True
+    
+
 class WindowManager(ScreenManager):
     pass
 

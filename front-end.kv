@@ -1,6 +1,8 @@
 WindowManager:
-    Inicio:   
+    Inicio:  
     RealizarCalculo:
+    Resultado:
+    
 
 <MDButton>
     radius: [10,10,10,10]
@@ -15,7 +17,155 @@ WindowManager:
     size_hint: 0.7, None
     hint_text_color: "#C0C0C0"
     
+<Resultado>
+    name: "Resultado"
 
+    FloatLayout:
+
+        MDIconButton:
+            on_release: 
+                app.root.current = "Inicio"
+                root.manager.transition.direction = "right"
+            pos_hint: {'x': 0.08, 'y': 0.89}
+            icon: "home-circle"
+            color: '#121310'
+            font_size: 50
+
+        Label:
+            size_hint: (None, None)
+            pos_hint: {'x': 0.3, 'y': 0.86}
+            text: 'Resultado'
+            font_size: 45
+            font_name: 'fonts/Roboto-Medium.ttf'
+            color: '#121310'
+
+        MDWidget:
+            id: widget
+            pos_hint: {'x': 0.1, 'y': 0.25}
+            size_hint: 0.8, 0.6
+            radius: 10
+            md_bg_color: [149/255,170/255,97/255,1]
+        
+        Label:
+            size_hint: (None, None)
+            pos_hint: {'x': 0.38, 'y': 0.75}
+            text: '00 - março - 0000'
+            font_size: 20
+            font_name: 'fonts/Roboto-Medium.ttf'
+            color: '#ffffff'
+
+        MDDivider:
+            size_hint_x: .8
+            pos_hint: {'center_x': .5, 'center_y': .77}
+            color:'#ffffff'
+
+        Label:
+            size_hint: (None, None)
+            pos_hint: {'x': 0.27, 'y': 0.67}
+            text: root.val_w
+            font_size: 20
+            font_name: 'fonts/Roboto-Medium.ttf'
+            color: '#ffffff'
+
+        TextInput:
+            readonly: True
+            text: root.desc_w
+            pos_hint: {'x': 0.15, 'y': 0.57} 
+            id: valor_wilson
+            height: 115
+            cursor_color: 0,0,0,0
+
+        MDDivider:
+            size_hint_x: .8
+            pos_hint: {'center_x': .5, 'center_y': .55}
+            color:'#ffffff'
+        
+        Label:
+            size_hint: (None, None)
+            pos_hint: {'x': 0.26, 'y': 0.45}
+            text: root.val_c
+            font_size: 20
+            font_name: 'fonts/Roboto-Medium.ttf'
+            color: '#ffffff'
+
+        TextInput:
+            text: root.desc_c
+            readonly: True
+            pos_hint: {'x': 0.15, 'y': 0.35} 
+            id: valor_conta
+            height: 115
+            cursor_color: 0,0,0,0
+        
+        MDDivider:
+            size_hint_x: .8
+            pos_hint: {'center_x': .5, 'center_y': .32}
+            color:'#ffffff'
+
+        MDButton:
+            on_release: root.on_release_descricao()
+            pos_hint: {"center_x": .5, 'center_y': 0.28}
+            style: "text"
+
+            MDButtonIcon:
+                icon: "chevron-down-box"
+                color: '#121310'
+                pos_hint: {"x": .55, "center_y": .5}  
+                font_size: 30 #size of icon
+                color: '#ffffff'
+
+            MDButtonText:
+                theme_font_name: "Custom"
+                theme_font_size: "Custom"
+                text: 'Detalhes'
+                font_size: 20
+                font_name: 'fonts/Roboto-Medium.ttf'
+                color: '#ffffff'
+                pos_hint: {"x": .3, "center_y": .5}
+
+        TextInput:
+            readonly: True
+            pos_hint: {'x': 1.5, 'y': 0.22}
+            id: description
+            cursor_color: 0,0,0,0
+        
+        MDButton:
+            id: button_edit
+            pos_hint: {'x': 0.12, 'y': 0.1}
+            height: 70
+            shadow_offset: 6, 6
+            size_hint_x: .3
+            theme_bg_color: "Custom"
+            md_bg_color: "#6EB4A3"  
+            #on_release: root.calculate()
+
+            MDButtonText:
+                text: "Editar"
+                theme_font_name: "Custom"
+                theme_font_size: "Custom"
+                font_name: 'fonts/Roboto-Medium.ttf'
+                color: '#ffffff'
+                font_size: 25
+                pos_hint: {'x': 0.25, 'center_y': 0.5}
+        
+        MDButton:
+            id: button_exclude
+            pos_hint: {'x': 0.6, 'y': 0.1}
+            height: 70
+            shadow_offset: 6, 6
+            size_hint_x: .3
+            theme_bg_color: "Custom"
+            md_bg_color: "#B46E6E"  
+            #on_release: root.calculate()
+
+            MDButtonText:
+                text: "Excluir"
+                theme_font_name: "Custom"
+                theme_font_size: "Custom"
+                font_name: 'fonts/Roboto-Medium.ttf'
+                color: '#ffffff'
+                font_size: 25
+                pos_hint: {'x': 0.25, 'center_y': 0.5}
+                    
 <RealizarCalculo>
     name: "RealizarCalculo"
 
@@ -25,16 +175,16 @@ WindowManager:
             on_release: 
                 app.root.current = "Inicio"
                 root.manager.transition.direction = "right"
-            pos_hint: {'x': 0.02, 'y': 0.89}
+            pos_hint: {'x': 0.08, 'y': 0.89}
             icon: "arrow-left-circle"
             color: '#121310'
             font_size: 50
 
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.45, 'y': 0.86}
+            pos_hint: {'x': 0.43, 'y': 0.86}
             text: 'Realizar Cálculo'
-            font_size: 50
+            font_size: 45
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#121310'
         
@@ -144,9 +294,9 @@ WindowManager:
             height: 70
             shadow_offset: -6, 6
             size_hint_x: .3
-            md_bg_color_disabled: '#C0C0C0'
             disabled: True
-            on_release: root.calculate()
+            on_release: 
+                root.calculate()
 
             MDButtonText:
                 text: "Calcular"
