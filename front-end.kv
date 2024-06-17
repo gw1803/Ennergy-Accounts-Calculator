@@ -2,6 +2,7 @@ WindowManager:
     Inicio:  
     RealizarCalculo:
     Resultado:
+    VisualizarCalculos:
     
 
 <MDButton>
@@ -16,7 +17,38 @@ WindowManager:
     height: 35
     size_hint: 0.7, None
     hint_text_color: "#C0C0C0"
-    
+
+<VisualizarCalculos>
+    name:"VisualizarCalculos"
+    on_enter: root.show_buttons()
+
+    FloatLayout:
+
+        MDIconButton:
+            on_release: 
+                app.root.current = "Inicio"
+                root.manager.transition.direction = "right"
+            pos_hint: {'x': 0.08, 'y': 0.89}
+            icon: "home-circle"
+            color: '#121310'
+            font_size: 50
+
+        Label:
+            size_hint: (None, None)
+            pos_hint: {'x': 0.3, 'y': 0.83}
+            text: 'Visualizar\ncálculos'
+            font_size: 45
+            font_name: 'fonts/Roboto-Medium.ttf'
+            color: '#121310'
+
+        MDWidget:
+            id: widget
+            pos_hint: {'x': 0.1, 'y': 0.1}
+            size_hint: 0.8, 0.7
+            radius: 10
+            md_bg_color: [149/255,170/255,97/255,1]
+        
+
 <Resultado>
     name: "Resultado"
     on_enter: root.reload_variables()
@@ -61,7 +93,7 @@ WindowManager:
             color:'#ffffff'
 
         Label:
-            id: label_wilson
+            text: "Valor Wilson"
             size_hint: (None, None)
             pos_hint: {'x': 0.27, 'y': 0.67}
             font_size: 20
@@ -81,7 +113,7 @@ WindowManager:
             color:'#ffffff'
         
         Label:
-            id: label_celio
+            text: "Valor Célio"
             size_hint: (None, None)
             pos_hint: {'x': 0.26, 'y': 0.45}
             font_size: 20
@@ -332,8 +364,6 @@ WindowManager:
                 font_name: 'fonts/Roboto-Medium.ttf'
                 color: '#121310'
                 halign: 'left'
-
-        
         
         BoxLayout:
             orientation: "vertical"
@@ -364,6 +394,9 @@ WindowManager:
                     font_size: 25
 
             MDButton:
+                on_release: 
+                    app.root.current = "VisualizarCalculos"
+                    root.manager.transition.direction = "left"
                 pos_hint: {"center_x": .5}
                 height: 70
                 shadow_offset: 6, -6
