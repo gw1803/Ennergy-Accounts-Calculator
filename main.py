@@ -94,29 +94,34 @@ class RealizarCalculo(Screen):
         
         self.descricao_wilson += f"\nValor final: {self.valor_wilson}"
         self.descricao_celio += f"\nValor final: {self.valor_celio}"
-
+        
         self.manager.current = "Resultado"
+        
         
 class Resultado(Screen):
     #achar instancia de RealizarCalculo
-    desc_w = RealizarCalculo.descricao_wilson
-    desc_c = ""
-    val_w = str(RealizarCalculo.valor_wilson)
-    val_c = ""
-      
+    description_verifier = True
+
+    def reload_variables(self):
+        realizar_calculo_screen = self.manager.get_screen('RealizarCalculo')
+        self.ids.valor_wilson.text = realizar_calculo_screen.descricao_wilson
+        self.ids.valor_celio.text = realizar_calculo_screen.descricao_celio
+        self.ids.label_wilson.text = f"Valor Wilson: {realizar_calculo_screen.valor_wilson} R$"
+        self.ids.label_celio.text = f"Valor célio: {realizar_calculo_screen.valor_celio} R$"
+        self.ids.descricao.text = realizar_calculo_screen.descricao
 
     def on_release_descricao(self):
         if self.description_verifier:
             self.ids.button_edit.pos_hint = {'x': 1.15}
             self.ids.button_exclude.pos_hint = {'x': 1.15}
-            self.ids.description.pos_hint = {'x': 0.15, 'y': 0.22}
+            self.ids.descricao.pos_hint = {'x': 0.15, 'y': 0.13}
             self.ids.widget.size_hint = 0.8, 0.75
             self.ids.widget.pos_hint = {'x': 0.1, 'y': 0.10}
             self.description_verifier = False
         else:
             self.ids.button_edit.pos_hint = {'x': 0.12, 'y': 0.1}
             self.ids.button_exclude.pos_hint =  {'x': 0.6, 'y': 0.1}
-            self.ids.description.pos_hint = {'x': 1.15, 'y': 0.22}
+            self.ids.descricao.pos_hint = {'x': 1.15, 'y': 0.13}
             self.ids.widget.size_hint = 0.8, 0.6
             self.ids.widget.pos_hint = {'x': 0.1, 'y': 0.25}
             self.description_verifier = True

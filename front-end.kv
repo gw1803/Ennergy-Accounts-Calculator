@@ -19,6 +19,7 @@ WindowManager:
     
 <Resultado>
     name: "Resultado"
+    on_enter: root.reload_variables()
 
     FloatLayout:
 
@@ -60,16 +61,15 @@ WindowManager:
             color:'#ffffff'
 
         Label:
+            id: label_wilson
             size_hint: (None, None)
             pos_hint: {'x': 0.27, 'y': 0.67}
-            text: root.val_w
             font_size: 20
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
         TextInput:
             readonly: True
-            text: root.desc_w
             pos_hint: {'x': 0.15, 'y': 0.57} 
             id: valor_wilson
             height: 115
@@ -81,18 +81,17 @@ WindowManager:
             color:'#ffffff'
         
         Label:
+            id: label_celio
             size_hint: (None, None)
             pos_hint: {'x': 0.26, 'y': 0.45}
-            text: root.val_c
             font_size: 20
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
         TextInput:
-            text: root.desc_c
             readonly: True
             pos_hint: {'x': 0.15, 'y': 0.35} 
-            id: valor_conta
+            id: valor_celio
             height: 115
             cursor_color: 0,0,0,0
         
@@ -124,9 +123,10 @@ WindowManager:
 
         TextInput:
             readonly: True
-            pos_hint: {'x': 1.5, 'y': 0.22}
-            id: description
+            pos_hint: {'x': 1.5, 'y': 0.13}
+            id: descricao
             cursor_color: 0,0,0,0
+            height: 115
         
         MDButton:
             id: button_edit
@@ -168,7 +168,6 @@ WindowManager:
                     
 <RealizarCalculo>
     name: "RealizarCalculo"
-
     FloatLayout:
 
         MDIconButton:
