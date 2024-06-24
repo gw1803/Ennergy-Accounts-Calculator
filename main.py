@@ -1,5 +1,5 @@
 from asyncio import wait
-from datetime import date
+from datetime import date, datetime
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.app import MDApp
@@ -10,10 +10,9 @@ from KivyMD.kivymd.uix.pickers.datepicker.datepicker import MDModalInputDatePick
 
 contas = []
 
-
 class Conta():
     
-    def __init__(self, padrao_geral, padrao_wilson, padrao_celio, valor_conta, valor_kw, taxa_iluminacao, descricao, descricao_wilson, descricao_celio):
+    def __init__(self, padrao_geral, padrao_wilson, padrao_celio, valor_conta, valor_kw, taxa_iluminacao, descricao, descricao_wilson, descricao_celio, data):
         self.padrao_geral = padrao_geral
         self.padrao_wilson = padrao_wilson
         self.padrao_celio = padrao_celio
@@ -23,11 +22,15 @@ class Conta():
         self.descricao = descricao
         self.descricao_wilson = descricao_wilson
         self.descricao_celio = descricao_celio
+        self.data = data
 
-contas.append(Conta(padrao_geral=31100, padrao_wilson = 36050, padrao_celio=24050, valor_conta=100, valor_kw=1, descricao_wilson="", descricao_celio="", descricao="", taxa_iluminacao=""))
-contas.append(Conta(padrao_geral=31100, padrao_wilson = 36050, padrao_celio=24050, valor_conta=100, valor_kw=1, descricao_wilson="", descricao_celio="", descricao="", taxa_iluminacao=""))
+contas.append(Conta(padrao_geral=31100, padrao_wilson = 36050, padrao_celio=24050, valor_conta=100, valor_kw=1, descricao_wilson="teste", descricao_celio="teste", descricao="11", taxa_iluminacao="", data = "10/12/2024"))
+contas.append(Conta(padrao_geral=31100, padrao_wilson = 36050, padrao_celio=24050, valor_conta=100, valor_kw=1, descricao_wilson="teste", descricao_celio="teste", descricao="22", taxa_iluminacao="", data = "09/11/2024"))
+
+
 
 class Inicio(Screen):
+    conta_atual = contas[0]
     pass
 
 class RealizarCalculo(Screen):
@@ -37,7 +40,7 @@ class RealizarCalculo(Screen):
     descricao = ""
     descricao_wilson = ""
     descricao_celio = ""
-    data = date.today().strftime('%d/%m/%y')
+    data = date.today().strftime('%d/%m/%Y')
 
     #values from the previous account
     padrao_geral_anterior = 31000
@@ -53,7 +56,7 @@ class RealizarCalculo(Screen):
     taxa_iluminacao = 0
 
     def on_ok(self, instance_date_picker):
-        data = str(instance_date_picker.get_date()[0].strftime('%d/%m/%y'))
+        data = str(instance_date_picker.get_date()[0].strftime('%d/%m/%Y'))
         self.ids.DataText.text = data
         instance_date_picker.dismiss()
 
@@ -132,7 +135,7 @@ class RealizarCalculo(Screen):
         self.descricao_wilson += f"\nValor final: {self.valor_wilson}"
         self.descricao_celio += f"\nValor final: {self.valor_celio}"
         
-        c = Conta(padrao_geral=self.padrao_geral, padrao_wilson = self.padrao_wilson, padrao_celio=self.padrao_celio, valor_conta=self.valor_conta, valor_kw=self.valor_kw, descricao_wilson=self.descricao_wilson, descricao_celio=self.descricao_celio, descricao=self.descricao, taxa_iluminacao=self.taxa_iluminacao)
+        c = Conta(padrao_geral=self.padrao_geral, padrao_wilson = self.padrao_wilson, padrao_celio=self.padrao_celio, valor_conta=self.valor_conta, valor_kw=self.valor_kw, descricao_wilson=self.descricao_wilson, descricao_celio=self.descricao_celio, descricao=self.descricao, taxa_iluminacao=self.taxa_iluminacao, data=self.data)
         contas.append(c)
 
         self.ids.padrao_geral.text = ""
@@ -141,7 +144,8 @@ class RealizarCalculo(Screen):
         self.ids.valor_conta.text = ""
         self.ids.valor_kw.text = ""
         self.ids.taxa_iluminacao.text = ""
-        data = date.today().strftime('%d/%m/%y')
+        self.data = date.today().strftime('%d/%m/%y')
+        self.manager.get_screen('Inicio').conta_atual = c
 
         self.manager.current = "Resultado"
                
@@ -150,10 +154,10 @@ class Resultado(Screen):
     description_verifier = True
 
     def reload_variables(self):
-        realizar_calculo_screen = self.manager.get_screen('RealizarCalculo')
-        self.ids.valor_wilson.text = realizar_calculo_screen.descricao_wilson
-        self.ids.valor_celio.text = realizar_calculo_screen.descricao_celio
-        self.ids.descricao.text = realizar_calculo_screen.descricao
+        self.ids.valor_wilson.text = self.manager.get_screen('Inicio').conta_atual.descricao_wilson
+        self.ids.valor_celio.text = self.manager.get_screen('Inicio').conta_atual.descricao_celio
+        self.ids.descricao.text = self.manager.get_screen('Inicio').conta_atual.descricao
+        self.ids.result_data.text = self.manager.get_screen('Inicio').conta_atual.data
 
     def on_release_descricao(self):
         if self.description_verifier:
@@ -175,14 +179,50 @@ class Resultado(Screen):
         pass
 
 class VisualizarCalculos(Screen):
+    def go_to_Account(self, btn):
+        for c in contas:
+            if c.data == str(btn.id):
+                self.manager.get_screen('Inicio').conta_atual = c
+        self.manager.current = "Resultado"
+
     def show_buttons(self):
         y_offset = 0.7
-        for c in contas:
+        for index, c in enumerate(contas):
+            dataStr = ""
+            data = datetime.strptime(c.data, '%d/%m/%Y')
+            match data.month :
+                case 1:
+                    dataStr += "Janeiro"
+                case 2:
+                    dataStr += "Fevereiro"
+                case 3:
+                    dataStr += "Março"
+                case 4:
+                    dataStr += "Abril"
+                case 5:
+                    dataStr += "Maio"
+                case 6:
+                    dataStr += "Junho"
+                case 7:
+                    dataStr += "Julho"
+                case 8:
+                    dataStr += "Agosto"
+                case 9:
+                    dataStr += "Setembro"
+                case 10:
+                    dataStr += "Outubro"
+                case 11:
+                    dataStr += "Novembro"
+                case 12:
+                    dataStr += "Dezembro"
+                
+            dataStr += f" - {data.year}"
             button = MDButton(
                 MDButtonText(
-                    text= "Visualizar cálculos",
+                    text= dataStr,
                     theme_font_name= "Custom",
                     theme_font_size= "Custom",
+                    theme_text_color= "Custom",
                     font_name= 'fonts/Roboto-Light.ttf',
                     color = '#121310',
                     pos_hint= {"x": .2, "center_y": .5},
@@ -191,9 +231,11 @@ class VisualizarCalculos(Screen):
                 pos_hint = {"center_x": .5, "y": y_offset},
                 height = 70,
                 shadow_offset = (6, -6),
+                id = c.data,
+                on_release = self.go_to_Account
             )
             y_offset -= 0.1
-            self.add_widget(button)
+            self.add_widget(button) 
 
 class WindowManager(ScreenManager):
     pass

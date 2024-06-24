@@ -80,9 +80,9 @@ WindowManager:
             md_bg_color: [149/255,170/255,97/255,1]
         
         Label:
+            id: result_data
             size_hint: (None, None)
-            pos_hint: {'x': 0.38, 'y': 0.75}
-            text: '00 - março - 0000'
+            pos_hint: {'center_x': 0.5, 'y': 0.75}
             font_size: 20
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
@@ -95,7 +95,7 @@ WindowManager:
         Label:
             text: "Valor Wilson"
             size_hint: (None, None)
-            pos_hint: {'x': 0.27, 'y': 0.67}
+            pos_hint: {'center_x': 0.5, 'y': 0.67}
             font_size: 20
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
@@ -115,7 +115,7 @@ WindowManager:
         Label:
             text: "Valor Célio"
             size_hint: (None, None)
-            pos_hint: {'x': 0.26, 'y': 0.45}
+            pos_hint: {'center_x': 0.5, 'y': 0.45}
             font_size: 20
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
@@ -140,7 +140,7 @@ WindowManager:
             MDButtonIcon:
                 icon: "chevron-down-box"
                 color: '#121310'
-                pos_hint: {"x": .55, "center_y": .5}  
+                pos_hint: {"x": .65, "center_y": .5}  
                 font_size: 30 #size of icon
                 color: '#ffffff'
 
@@ -151,7 +151,7 @@ WindowManager:
                 font_size: 20
                 font_name: 'fonts/Roboto-Medium.ttf'
                 color: '#ffffff'
-                pos_hint: {"x": .3, "center_y": .5}
+                pos_hint: {'center_x': 0.5, "center_y": .5}
 
         TextInput:
             readonly: True
