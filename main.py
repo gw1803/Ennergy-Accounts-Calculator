@@ -1,11 +1,13 @@
 from asyncio import wait
 from datetime import date, datetime
+from kivy.uix.widget import Widget
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 from KivyMD.kivymd.uix.button import MDButton, MDButtonText
+from KivyMD.kivymd.uix.dialog.dialog import MDDialog, MDDialogButtonContainer, MDDialogHeadlineText, MDDialogSupportingText
 from KivyMD.kivymd.uix.pickers.datepicker.datepicker import MDModalInputDatePicker, MDModalDatePicker
 
 contas = []
@@ -206,8 +208,46 @@ class Resultado(Screen):
         self.manager.get_screen("RealizarCalculo").reload_variables()
         self.manager.get_screen("RealizarCalculo").edit_verifier = True
         self.manager.current = "RealizarCalculo"
+    
+    def delete_calculation(self):
+        conta_atual = self.manager.get_screen('Inicio').conta_atual
+        contas.remove(conta_atual)
+        conta_atual = ""
+        self.manager.current = "Inicio"
+
+    def on_release_delete(self):
+        button_cancel = MDButton(
+                    MDButtonText(text="Cancelar"),
+                    style="text",
+                )
+        button_delete = MDButton(
+                    MDButtonText(text="Excluir"),
+                    style="text",
+                )
+        dialog = MDDialog(
+            MDDialogHeadlineText(
+                text="Excluir Cálculo?",
+                halign="left",
+            ),
+            MDDialogSupportingText(
+                text="Tem certeza que deseja excluir esse cálculo? Essa ação é irrevrsível!",
+                halign="left",
+            ),
+            MDDialogButtonContainer(
+                Widget(),
+                button_cancel,
+                button_delete,
+                spacing="8dp",
+            ),
+        )
+        dialog.open()
+        button_cancel.on_release = dialog.dismiss
+        button_delete.on_press = self.delete_calculation
+        button_delete.on_release = dialog.dismiss
 
 class VisualizarCalculos(Screen):
+    buttons = []
+
     def go_to_Account(self, btn):
         for c in contas:
             if c.data == str(btn.id):
@@ -215,8 +255,11 @@ class VisualizarCalculos(Screen):
         self.manager.current = "Resultado"
 
     def show_buttons(self):
+        for b in self.buttons:
+            self.remove_widget(b)
+            
         y_offset = 0.7
-        for index, c in enumerate(contas):
+        for c in contas:
             dataStr = ""
             data = datetime.strptime(c.data, '%d/%m/%Y')
             match data.month :
@@ -263,6 +306,7 @@ class VisualizarCalculos(Screen):
                 id = c.data,
                 on_release = self.go_to_Account
             )
+            self.buttons.append(button)
             y_offset -= 0.1
             self.add_widget(button) 
 

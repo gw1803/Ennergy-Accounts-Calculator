@@ -187,7 +187,7 @@ WindowManager:
             size_hint_x: .3
             theme_bg_color: "Custom"
             md_bg_color: "#B46E6E"  
-            #on_release: root.calculate()
+            on_release: root.on_release_delete()
 
             MDButtonText:
                 text: "Excluir"
@@ -265,7 +265,6 @@ WindowManager:
                 text: str(root.data)
                 theme_font_name: "Custom"
                 theme_font_size: "Custom"
-                font_name: 'fonts/Roboto-Light.ttf'
                 color: '#121310'
                 font_size: 20
                 pos_hint: {'x': 0.1, 'center_y': 0.5}
