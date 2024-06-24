@@ -25,9 +25,7 @@ class Conta():
         self.data = data
 
 contas.append(Conta(padrao_geral=31100, padrao_wilson = 36050, padrao_celio=24050, valor_conta=100, valor_kw=1, descricao_wilson="teste", descricao_celio="teste", descricao="11", taxa_iluminacao="", data = "10/12/2024"))
-contas.append(Conta(padrao_geral=31100, padrao_wilson = 36050, padrao_celio=24050, valor_conta=100, valor_kw=1, descricao_wilson="teste", descricao_celio="teste", descricao="22", taxa_iluminacao="", data = "09/11/2024"))
-
-
+contas.append(Conta(padrao_geral=31000, padrao_wilson = 36000, padrao_celio=24000, valor_conta=100, valor_kw=1, descricao_wilson="teste", descricao_celio="teste", descricao="22", taxa_iluminacao="", data = "09/11/2024"))
 
 class Inicio(Screen):
     conta_atual = contas[0]
@@ -54,10 +52,22 @@ class RealizarCalculo(Screen):
     valor_conta = ""
     valor_kw = ""
     taxa_iluminacao = 0
+    edit_verifier = False
+
+    def clean_fields(self):
+        if not self.edit_verifier:
+            self.ids.padrao_geral.text = ""
+            self.ids.padrao_wilson.text = ""
+            self.ids.padrao_celio.text = ""
+            self.ids.valor_conta.text = ""
+            self.ids.valor_kw.text = ""
+            self.ids.taxa_iluminacao.text = ""
+            self.data = date.today().strftime('%d/%m/%Y')
+            self.edit_verifier = False
 
     def on_ok(self, instance_date_picker):
-        data = str(instance_date_picker.get_date()[0].strftime('%d/%m/%Y'))
-        self.ids.DataText.text = data
+        self.data = str(instance_date_picker.get_date()[0].strftime('%d/%m/%Y'))
+        self.ids.DataText.text = self.data
         instance_date_picker.dismiss()
 
     def open_modal(self):
@@ -92,6 +102,7 @@ class RealizarCalculo(Screen):
             self.ids.button.disabled = True
 
     def calculate(self):
+
         if(self.ids.button.disabled == True):
             return
         kw_total_geral = self.padrao_geral - self.padrao_geral_anterior
@@ -135,20 +146,36 @@ class RealizarCalculo(Screen):
         self.descricao_wilson += f"\nValor final: {self.valor_wilson}"
         self.descricao_celio += f"\nValor final: {self.valor_celio}"
         
-        c = Conta(padrao_geral=self.padrao_geral, padrao_wilson = self.padrao_wilson, padrao_celio=self.padrao_celio, valor_conta=self.valor_conta, valor_kw=self.valor_kw, descricao_wilson=self.descricao_wilson, descricao_celio=self.descricao_celio, descricao=self.descricao, taxa_iluminacao=self.taxa_iluminacao, data=self.data)
-        contas.append(c)
-
-        self.ids.padrao_geral.text = ""
-        self.ids.padrao_wilson.text = ""
-        self.ids.padrao_celio.text = ""
-        self.ids.valor_conta.text = ""
-        self.ids.valor_kw.text = ""
-        self.ids.taxa_iluminacao.text = ""
-        self.data = date.today().strftime('%d/%m/%y')
-        self.manager.get_screen('Inicio').conta_atual = c
+        if self.edit_verifier:
+            conta_atual = self.manager.get_screen("Inicio").conta_atual
+            conta_atual.padrao_geral = self.padrao_geral
+            conta_atual.padrao_wilson = self.padrao_wilson
+            conta_atual.padrao_celio = self.padrao_celio
+            conta_atual.valor_conta = self.valor_conta
+            conta_atual.valor_kw = self.valor_kw
+            conta_atual.descricao_wilson = self.descricao_wilson
+            conta_atual.descricao_celio = self.descricao_celio
+            conta_atual.descricao = self.descricao
+            conta_atual.taxa_iluminacao = self.taxa_iluminacao
+            conta_atual.data = self.data
+        else:
+            c = Conta(padrao_geral=self.padrao_geral, padrao_wilson = self.padrao_wilson, padrao_celio=self.padrao_celio, valor_conta=self.valor_conta, valor_kw=self.valor_kw, descricao_wilson=self.descricao_wilson, descricao_celio=self.descricao_celio, descricao=self.descricao, taxa_iluminacao=self.taxa_iluminacao, data=self.data)
+            contas.append(c)
+            self.manager.get_screen('Inicio').conta_atual = c
+        
 
         self.manager.current = "Resultado"
-               
+    
+    def reload_variables(self):
+        conta_atual = self.manager.get_screen("Inicio").conta_atual
+        self.ids.DataText.text = conta_atual.data
+        self.ids.padrao_geral.text = str(conta_atual.padrao_geral)
+        self.ids.padrao_wilson.text = str(conta_atual.padrao_wilson)
+        self.ids.padrao_celio.text = str(conta_atual.padrao_celio)
+        self.ids.valor_conta.text = str(conta_atual.valor_conta)
+        self.ids.valor_kw.text = str(conta_atual.valor_kw)
+        self.ids.taxa_iluminacao.text = str(conta_atual.taxa_iluminacao)
+
 class Resultado(Screen):
     #achar instancia de RealizarCalculo
     description_verifier = True
@@ -175,8 +202,10 @@ class Resultado(Screen):
             self.ids.widget.pos_hint = {'x': 0.1, 'y': 0.25}
             self.description_verifier = True
 
-    def on_realease_edit(self):
-        pass
+    def on_release_edit(self):
+        self.manager.get_screen("RealizarCalculo").reload_variables()
+        self.manager.get_screen("RealizarCalculo").edit_verifier = True
+        self.manager.current = "RealizarCalculo"
 
 class VisualizarCalculos(Screen):
     def go_to_Account(self, btn):

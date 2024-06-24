@@ -168,7 +168,7 @@ WindowManager:
             size_hint_x: .3
             theme_bg_color: "Custom"
             md_bg_color: "#6EB4A3"  
-            #on_release: root.calculate()
+            on_release: root.on_release_edit()
 
             MDButtonText:
                 text: "Editar"
@@ -206,6 +206,7 @@ WindowManager:
             on_release: 
                 app.root.current = "Inicio"
                 root.manager.transition.direction = "right"
+                root.manager.get_screen("RealizarCalculo").edit_verifier = False
             pos_hint: {'x': 0.08, 'y': 0.89}
             icon: "arrow-left-circle"
             color: '#121310'
@@ -402,6 +403,7 @@ WindowManager:
 
             MDButton:
                 on_release: 
+                    root.manager.get_screen("RealizarCalculo").clean_fields()
                     app.root.current = "RealizarCalculo"
                     root.manager.transition.direction = "left"
                 pos_hint: {"center_x": .5}
