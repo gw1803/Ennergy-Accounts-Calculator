@@ -1,10 +1,12 @@
 from asyncio import wait
+from datetime import date
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
 
 from KivyMD.kivymd.uix.button import MDButton, MDButtonText
+from KivyMD.kivymd.uix.pickers.datepicker.datepicker import MDModalInputDatePicker, MDModalDatePicker
 
 contas = []
 
@@ -35,6 +37,7 @@ class RealizarCalculo(Screen):
     descricao = ""
     descricao_wilson = ""
     descricao_celio = ""
+    data = date.today().strftime('%d/%m/%y')
 
     #values from the previous account
     padrao_geral_anterior = 31000
@@ -48,6 +51,19 @@ class RealizarCalculo(Screen):
     valor_conta = ""
     valor_kw = ""
     taxa_iluminacao = 0
+
+    def on_ok(self, instance_date_picker):
+        data = str(instance_date_picker.get_date()[0].strftime('%d/%m/%y'))
+        self.ids.DataText.text = data
+        instance_date_picker.dismiss()
+
+    def open_modal(self):
+        date_dialog = MDModalDatePicker()
+        date_dialog.date_format = 'dd/mm/yyyy'
+        date_dialog.supporting_text = "Insira uma data"
+        date_dialog.bind(on_ok=self.on_ok)
+        date_dialog.on_cancel = date_dialog.dismiss
+        date_dialog.open()
 
     def on_text(self, input):
         if input.text != "":
@@ -125,6 +141,7 @@ class RealizarCalculo(Screen):
         self.ids.valor_conta.text = ""
         self.ids.valor_kw.text = ""
         self.ids.taxa_iluminacao.text = ""
+        data = date.today().strftime('%d/%m/%y')
 
         self.manager.current = "Resultado"
                
@@ -186,8 +203,6 @@ class main(MDApp):
         Window.clearcolor = "#D6E68A"
         Window.size = (375,700)
         return Builder.load_file('front-end.kv')
-    
-
 
 if __name__ == '__main__':
     main().run()

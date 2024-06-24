@@ -1,5 +1,6 @@
 asyncgui==0.6.1
 asynckivy==0.6.2
+beautifulsoup4==4.12.3
 certifi==2024.6.2
 charset-normalizer==3.3.2
 docutils==0.21.2
@@ -17,4 +18,5 @@ Pygments==2.18.0
 pypiwin32==223
 pywin32==306
 requests==2.32.3
+soupsieve==2.5
 urllib3==2.2.1
