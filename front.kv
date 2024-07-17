@@ -13,8 +13,8 @@ WindowManager:
 
 <TextInput>
     input_filter: 'int'
-    font_size: 20
-    height: 35
+    font_size: 50
+    height: 80
     size_hint: 0.7, None
     hint_text_color: "#C0C0C0"
 
@@ -78,7 +78,7 @@ WindowManager:
             id: widget
             pos_hint: {'x': 0.1, 'y': 0.25}
             size_hint: 0.8, 0.6
-            radius: 10
+            radius: 50
             md_bg_color: [149/255,170/255,97/255,1]
         
         Label:
@@ -209,57 +209,57 @@ WindowManager:
                 app.root.current = "Inicio"
                 root.manager.transition.direction = "right"
                 root.manager.get_screen("RealizarCalculo").edit_verifier = False
-            pos_hint: {'x': 0.08, 'y': 0.89}
+            pos_hint: {'x': 0.08, 'y': 0.85}
             icon: "arrow-left-circle"
             color: '#121310'
-            font_size: 50
+            font_size: 70
 
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.43, 'y': 0.86}
+            pos_hint: {'x': 0.5, 'y': 0.85}
             text: 'Realizar Cálculo'
-            font_size: 45
+            font_size: 100
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#121310'
         
         MDWidget:
             pos_hint: {'x': 0.1, 'y': 0.1}
             size_hint: 0.8, 0.7
-            radius: 10
+            radius: 50
             md_bg_color: [149/255,170/255,97/255,1]
 
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.18, 'y': 0.7}
+            pos_hint: {'x': 0.26, 'y': 0.73}
             text: 'Padrão geral '
-            font_size: 20
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
         TextInput:
             pos_hint: {'x': 0.15, 'y': 0.7} 
-            size_hint: 0.30, None
+            size_hint: 0.32, None
             hint_text: "Ex: 35673"
             id: padrao_geral
             on_text: root.on_text(self)
         
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.51, 'y': 0.7}
+            pos_hint: {'x': 0.53, 'y': 0.73}
             text: "Data"
-            font_size: 20
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
         
         MDButton:
             id: Data
             radius: [0,0,0,0]
-            pos_hint: {'x': 0.55, 'y': 0.7}
-            height: 36
+            pos_hint: {'x': 0.53, 'y': 0.7}
+            height: 82
             style: "outlined"
             theme_bg_color: "Custom"
             md_bg_color: "#e9e9e9"
-            size_hint_x: .3
+            size_hint_x: .32
             on_release: root.open_modal()
 
             MDButtonText:
@@ -268,19 +268,19 @@ WindowManager:
                 theme_font_name: "Custom"
                 theme_font_size: "Custom"
                 color: '#121310'
-                font_size: 20
+                font_size: 50
                 pos_hint: {'x': 0.1, 'center_y': 0.5}
 
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.19, 'y': 0.6}
+            pos_hint: {'x': 0.27, 'y': 0.63}
             text: 'Padrão Wilson '
-            font_size: 20
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
         TextInput:
-            size_hint: 0.30, None
+            size_hint: 0.32, None
             pos_hint: {'x': 0.15, 'y': 0.6} 
             hint_text: "Ex: 35673"
             id: padrao_wilson
@@ -288,15 +288,15 @@ WindowManager:
 
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.58, 'y': 0.6}
+            pos_hint: {'x': 0.63, 'y': 0.63}
             text: 'Padrão Célio '
-            font_size: 20
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
         TextInput:
-            size_hint: 0.30, None
-            pos_hint: {'x': 0.55, 'y': 0.6} 
+            size_hint: 0.32, None
+            pos_hint: {'x': 0.53, 'y': 0.6} 
             hint_text: "Ex: 35673"
             id: padrao_celio
             on_text: root.on_text(self)
@@ -308,9 +308,9 @@ WindowManager:
         
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.24, 'y': 0.45}
+            pos_hint: {'x': 0.33, 'y': 0.48}
             text: 'Valor total da conta'
-            font_size: 20
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
@@ -323,9 +323,9 @@ WindowManager:
 
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.17, 'y': 0.35}
+            pos_hint: {'x': 0.25, 'y': 0.38}
             text: 'Valor do KW'
-            font_size: 20
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
@@ -338,9 +338,9 @@ WindowManager:
         
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.23, 'y': 0.25}
+            pos_hint: {'x': 0.33, 'y': 0.28}
             text: 'Taxa de iluminação'
-            font_size: 20
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
@@ -354,7 +354,7 @@ WindowManager:
         MDButton:
             id: button
             pos_hint: {'x': 0.35, 'y': 0.14}
-            height: 70
+            height: root.height/12
             shadow_offset: -6, 6
             size_hint_x: .3
             disabled: True
@@ -367,14 +367,19 @@ WindowManager:
                 theme_font_size: "Custom"
                 font_name: 'fonts/Roboto-Light.ttf'
                 color: '#121310'
-                font_size: 25
+                font_size: 60
                 pos_hint: {'x': 0.18, 'center_y': 0.5}
                 
 
         Image:
-            source: 'images\lamp.png'
-            size_hint: (0.2, None )
+            source: 'images/lamp.png'
             pos_hint: {'x': 0.78, 'y': 0.07}
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_y: None
+            size_hint_x: None
+            width: root.width/5
+            height: root.height/5
 
 <Inicio>
     size: root.width, root.height
@@ -395,7 +400,7 @@ WindowManager:
             size_hint: (None, None)
             text: 'Olá, \nnome'
             font_size: 130
-            pos_hint: {'x': 0.55, 'y': 0.8}
+            pos_hint: {'x': 0.55, 'y': 0.83}
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#121310'
             halign: 'left'
