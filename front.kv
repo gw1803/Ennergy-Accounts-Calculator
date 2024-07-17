@@ -6,7 +6,7 @@ WindowManager:
     
 
 <MDButton>
-    radius: [10,10,10,10]
+    radius: [50,50,50,50]
     #md_bg_color: (246, 248, 238, 0)    
     theme_width: "Custom"
     size_hint_x: .75
@@ -19,6 +19,7 @@ WindowManager:
     hint_text_color: "#C0C0C0"
 
 <VisualizarCalculos>
+    size: root.width, root.height
     name:"VisualizarCalculos"
     on_enter: root.show_buttons()
 
@@ -52,6 +53,7 @@ WindowManager:
 <Resultado>
     name: "Resultado"
     on_enter: root.reload_variables()
+    size: root.width, root.height
 
     FloatLayout:
 
@@ -163,7 +165,6 @@ WindowManager:
         MDButton:
             id: button_edit
             pos_hint: {'x': 0.12, 'y': 0.1}
-            height: 70
             shadow_offset: 6, 6
             size_hint_x: .3
             theme_bg_color: "Custom"
@@ -199,6 +200,7 @@ WindowManager:
                 pos_hint: {'x': 0.25, 'center_y': 0.5}
                     
 <RealizarCalculo>
+    size: root.width, root.height
     name: "RealizarCalculo"
     FloatLayout:
 
@@ -375,30 +377,34 @@ WindowManager:
             pos_hint: {'x': 0.78, 'y': 0.07}
 
 <Inicio>
+    size: root.width, root.height
     name: "Inicio"
     FloatLayout:
 
-        StackLayout:
-            orientation: 'lr-tb'
-            spacing:[50,0]
-            padding:[75,75]
+        Image:
+            pos_hint: {'x': 0.2, 'y': 0.75}
+            source: 'images/lamp.png'
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_y: None
+            size_hint_x: None
+            width: root.width/5
+            height: root.height/5
 
-            Image:
-                source: 'images\lamp.png'
-                size_hint: (0.30, None )
-
-            Label:
-                size_hint: (None, None)
-                text: 'Olá, \nnome'
-                font_size: 50
-                font_name: 'fonts/Roboto-Medium.ttf'
-                color: '#121310'
-                halign: 'left'
+        Label:
+            size_hint: (None, None)
+            text: 'Olá, \nnome'
+            font_size: 130
+            pos_hint: {'x': 0.55, 'y': 0.8}
+            font_name: 'fonts/Roboto-Medium.ttf'
+            color: '#121310'
+            halign: 'left'
         
         BoxLayout:
             orientation: "vertical"
-            spacing: 50
+            spacing: 100
             pos_hint: {"y": .18}
+            size: root.width, root.height/2
 
             MDButton:
                 on_release: 
@@ -406,14 +412,14 @@ WindowManager:
                     app.root.current = "RealizarCalculo"
                     root.manager.transition.direction = "left"
                 pos_hint: {"center_x": .5}
-                height: 70
                 shadow_offset: 6, -6
+                height: root.height/12
 
                 MDButtonIcon:
                     icon: "calculator"
                     color: '#121310'
                     pos_hint: {"x": .85, "center_y": .5}  
-                    font_size: 35 #size of icon
+                    font_size: 70 #size of icon
 
                 MDButtonText:
                     text: "Realizar cálculo"
@@ -422,21 +428,20 @@ WindowManager:
                     font_name: 'fonts/Roboto-Light.ttf'
                     color: '#121310'
                     pos_hint: {"x": .1, "center_y": .5}
-                    font_size: 25
+                    font_size: 60
 
             MDButton:
                 on_release: 
                     app.root.current = "VisualizarCalculos"
                     root.manager.transition.direction = "left"
                 pos_hint: {"center_x": .5}
-                height: 70
                 shadow_offset: 6, -6
-
+                height: root.height/12
                 MDButtonIcon:
                     icon: "magnify"
                     color: '#121310'
                     pos_hint: {"x": .85, "center_y": .5}
-                    font_size: 35 #size of icon
+                    font_size: 70 #size of icon
 
                 MDButtonText:
                     text: "Visualizar cálculos"
@@ -445,18 +450,17 @@ WindowManager:
                     font_name: 'fonts/Roboto-Light.ttf'
                     color: '#121310'
                     pos_hint: {"x": .1, "center_y": .5}
-                    font_size: 25
+                    font_size: 60
 
             MDButton:
                 pos_hint: {"center_x": .5}
-                height: 70
                 shadow_offset: 6, -6
-
+                height: root.height/12
                 MDButtonIcon:
                     icon: "book-open-variant-outline"
                     color: '#121310'
                     pos_hint: {"x": .85, "center_y": .5}
-                    font_size: 35 #size of icon
+                    font_size: 70 #size of icon
                 MDButtonText:
                     text: "Adicionar conta"
                     theme_font_name: "Custom"
@@ -464,18 +468,17 @@ WindowManager:
                     font_name: 'fonts/Roboto-Light.ttf'
                     color: '#121310'
                     pos_hint: {"x": .1, "center_y": .5}
-                    font_size: 25
+                    font_size: 60
 
             MDButton:
                 pos_hint: {"center_x": .5}
-                height: 70
                 shadow_offset: 6, -6
-
+                height: root.height/12
                 MDButtonIcon:
                     icon: "magnify"
                     color: '#121310'
                     pos_hint: {"x": .85, "center_y": .5}
-                    font_size: 35 #size of icon
+                    font_size: 70 #size of icon
                 MDButtonText:
                     text: "Visualizar contas"
                     theme_font_name: "Custom"
@@ -483,5 +486,5 @@ WindowManager:
                     font_name: 'fonts/Roboto-Light.ttf'
                     color: '#121310'
                     pos_hint: {"x": .1, "center_y": .5}
-                    font_size: 25
+                    font_size: 60
     

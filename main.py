@@ -9,6 +9,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from KivyMD.kivymd.uix.button import MDButton, MDButtonText
 from KivyMD.kivymd.uix.dialog.dialog import MDDialog, MDDialogButtonContainer, MDDialogHeadlineText, MDDialogSupportingText
 from KivyMD.kivymd.uix.pickers.datepicker.datepicker import MDModalInputDatePicker, MDModalDatePicker
+from kivy.config import Config
 
 contas = []
 
@@ -313,11 +314,12 @@ class VisualizarCalculos(Screen):
 class WindowManager(ScreenManager):
     pass
 
+from kivy.config import Config
+
 class main(MDApp):
     def build(self):
         Window.clearcolor = "#D6E68A"
-        Window.size = (375,700)
-        return Builder.load_file('front-end.kv')
+        return Builder.load_file('front.kv')
 
 if __name__ == '__main__':
     main().run()
