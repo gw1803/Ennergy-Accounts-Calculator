@@ -299,10 +299,10 @@ class VisualizarCalculos(Screen):
                     font_name= 'fonts/Roboto-Light.ttf',
                     color = '#121310',
                     pos_hint= {"x": .2, "center_y": .5},
-                    font_size= 25
+                    font_size= 60
                 ),
                 pos_hint = {"center_x": .5, "y": y_offset},
-                height = 70,
+                height = self.height/12,
                 shadow_offset = (6, -6),
                 id = c.data,
                 on_release = self.go_to_Account

@@ -18,7 +18,7 @@ WindowManager:
     size_hint: 0.7, None
     hint_text_color: "#C0C0C0"
 
-<VisualizarCalculos>
+<VisualizarCalculos>    
     size: root.width, root.height
     name:"VisualizarCalculos"
     on_enter: root.show_buttons()
@@ -29,16 +29,16 @@ WindowManager:
             on_release: 
                 app.root.current = "Inicio"
                 root.manager.transition.direction = "right"
-            pos_hint: {'x': 0.08, 'y': 0.89}
+            pos_hint: {'x': 0.08, 'y': 0.9}
             icon: "home-circle"
             color: '#121310'
             font_size: 50
 
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.3, 'y': 0.83}
+            pos_hint: {'x': 0.4, 'y': 0.9}
             text: 'Visualizar\ncálculos'
-            font_size: 45
+            font_size: 100
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#121310'
 
@@ -46,7 +46,7 @@ WindowManager:
             id: widget
             pos_hint: {'x': 0.1, 'y': 0.1}
             size_hint: 0.8, 0.7
-            radius: 10
+            radius: 50
             md_bg_color: [149/255,170/255,97/255,1]
         
 
@@ -61,16 +61,16 @@ WindowManager:
             on_release: 
                 app.root.current = "Inicio"
                 root.manager.transition.direction = "right"
-            pos_hint: {'x': 0.08, 'y': 0.89}
+            pos_hint: {'x': 0.08, 'y': 0.9}
             icon: "home-circle"
             color: '#121310'
             font_size: 50
 
         Label:
             size_hint: (None, None)
-            pos_hint: {'x': 0.3, 'y': 0.86}
+            pos_hint: {'x': 0.4, 'y': 0.9}
             text: 'Resultado'
-            font_size: 45
+            font_size: 100
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#121310'
 
@@ -84,8 +84,8 @@ WindowManager:
         Label:
             id: result_data
             size_hint: (None, None)
-            pos_hint: {'center_x': 0.5, 'y': 0.75}
-            font_size: 20
+            pos_hint: {'center_x': 0.5, 'y': 0.79}
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
@@ -97,8 +97,8 @@ WindowManager:
         Label:
             text: "Valor Wilson"
             size_hint: (None, None)
-            pos_hint: {'center_x': 0.5, 'y': 0.67}
-            font_size: 20
+            pos_hint: {'center_x': 0.5, 'y': 0.73}
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
@@ -106,7 +106,7 @@ WindowManager:
             readonly: True
             pos_hint: {'x': 0.15, 'y': 0.57} 
             id: valor_wilson
-            height: 115
+            height: root.height/8
             cursor_color: 0,0,0,0
 
         MDDivider:
@@ -117,8 +117,8 @@ WindowManager:
         Label:
             text: "Valor Célio"
             size_hint: (None, None)
-            pos_hint: {'center_x': 0.5, 'y': 0.45}
-            font_size: 20
+            pos_hint: {'center_x': 0.5, 'y': 0.51}
+            font_size: 55
             font_name: 'fonts/Roboto-Medium.ttf'
             color: '#ffffff'
 
@@ -126,7 +126,7 @@ WindowManager:
             readonly: True
             pos_hint: {'x': 0.15, 'y': 0.35} 
             id: valor_celio
-            height: 115
+            height: root.height/8
             cursor_color: 0,0,0,0
         
         MDDivider:
@@ -143,14 +143,14 @@ WindowManager:
                 icon: "chevron-down-box"
                 color: '#121310'
                 pos_hint: {"x": .65, "center_y": .5}  
-                font_size: 30 #size of icon
+                font_size: 60 #size of icon
                 color: '#ffffff'
 
             MDButtonText:
                 theme_font_name: "Custom"
                 theme_font_size: "Custom"
                 text: 'Detalhes'
-                font_size: 20
+                font_size: 55
                 font_name: 'fonts/Roboto-Medium.ttf'
                 color: '#ffffff'
                 pos_hint: {'center_x': 0.5, "center_y": .5}
@@ -160,13 +160,14 @@ WindowManager:
             pos_hint: {'x': 1.5, 'y': 0.13}
             id: descricao
             cursor_color: 0,0,0,0
-            height: 115
+            height: root.height/8
         
         MDButton:
             id: button_edit
-            pos_hint: {'x': 0.12, 'y': 0.1}
+            pos_hint: {'x': 0.12, 'y': 0.15}
             shadow_offset: 6, 6
-            size_hint_x: .3
+            size_hint_x: .35
+            height: root.height/12
             theme_bg_color: "Custom"
             md_bg_color: "#6EB4A3"  
             on_release: root.on_release_edit()
@@ -177,15 +178,15 @@ WindowManager:
                 theme_font_size: "Custom"
                 font_name: 'fonts/Roboto-Medium.ttf'
                 color: '#ffffff'
-                font_size: 25
-                pos_hint: {'x': 0.25, 'center_y': 0.5}
+                font_size: 60
+                pos_hint: {'x': 0.3, 'center_y': 0.5}
         
         MDButton:
             id: button_exclude
-            pos_hint: {'x': 0.6, 'y': 0.1}
-            height: 70
+            pos_hint: {'x': 0.53, 'y': 0.15}
+            height: root.height/12
             shadow_offset: 6, 6
-            size_hint_x: .3
+            size_hint_x: .35
             theme_bg_color: "Custom"
             md_bg_color: "#B46E6E"  
             on_release: root.on_release_delete()
@@ -196,8 +197,8 @@ WindowManager:
                 theme_font_size: "Custom"
                 font_name: 'fonts/Roboto-Medium.ttf'
                 color: '#ffffff'
-                font_size: 25
-                pos_hint: {'x': 0.25, 'center_y': 0.5}
+                font_size: 60
+                pos_hint: {'x': 0.3, 'center_y': 0.5}
                     
 <RealizarCalculo>
     size: root.width, root.height
@@ -461,6 +462,7 @@ WindowManager:
                 pos_hint: {"center_x": .5}
                 shadow_offset: 6, -6
                 height: root.height/12
+                disabled: True
                 MDButtonIcon:
                     icon: "book-open-variant-outline"
                     color: '#121310'
@@ -479,6 +481,7 @@ WindowManager:
                 pos_hint: {"center_x": .5}
                 shadow_offset: 6, -6
                 height: root.height/12
+                disabled: True
                 MDButtonIcon:
                     icon: "magnify"
                     color: '#121310'
